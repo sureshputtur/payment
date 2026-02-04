@@ -1,0 +1,152 @@
+<ng-container *transloco="let t">
+  <div class="container py-2">
+    <div class="row justify-content-center">
+  <div
+    class="card border-0"
+  >
+  @if(paymentStatus === 'success') {
+  <div
+      class="text-center py-2 fade"
+      [class.show]="true">
+      <div class="mb-4">
+        <i class="bi bi-check-circle-fill display-1" [style.color]="themeColor"></i>
+      </div>
+      <h3 class="fw-bold mb-2">{{t('PAYMENT.PAY_CONFIRMED')}}</h3>
+      <p class="text-muted mb-4">{{t('PAYMENT.PAYMENT_SUCCESS')}}</p>
+
+      <button class="btn px-4 fw-bold"
+              [style.background-color]="themeColor"
+              [style.color]="'#fff'"
+              (click)="resetFormAndEnableForm()"
+              >
+            {{t('PAYMENT.GENERAL.DONE')}}
+      </button>
+    </div>
+  }@else if(paymentStatus === 'failed') {
+    <div
+    class="text-center py-5 fade"
+    [class.show]="true">
+ <div class="mb-4">
+   <i class="bi bi-check-circle-fill display-1" [style.color]="'#dc3545'"></i>
+ </div>
+
+ <h3 class="fw-bold mb-2">{{t('PAYMENT.ERRORS.FAILED')}}</h3>
+ <p class="text-muted mb-4">{{t('PAYMENT.ERRORS.DECLINED')}}</p>
+
+ <button class="btn px-4 fw-bold"
+         [style.background-color]="'#dc3545'"
+         [style.color]="'#fff'"
+         (click)="resetFormAndEnableForm()"
+         >
+         {{t('PAYMENT.GENERAL.TRYAGAIN')}}
+ </button>
+</div>
+  } @else {
+    <div class="card-body p-4">
+      <h5 class="card-title mb-4">{{ t('PAYMENT.TITLE') }}</h5>
+
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label small fw-bold" for="cardNumber"
+            >{{ t('PAYMENT.CARD_NUMBER') }}</label
+          >
+          <input
+            type="text"
+            id="cardNumber"
+            formControlName="cardNumber"
+            class="form-control"
+            (input)="onCardInput($event)"
+            [class.is-invalid]="isFieldInvalid('cardNumber')"
+            placeholder="XXXX XXXX XXXX XXXX"
+          />
+          <div class="invalid-feedback" aria-live="polite">
+            @if(hasError('cardNumber', 'required')) {
+            {{t('PAYMENT.ERRORS.REQUIRED')}} } @else {
+            {{t('PAYMENT.ERRORS.CARD')}} }
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label class="form-label small fw-bold" for="expiry"
+              >{{ t('PAYMENT.EXPIRY') }}</label
+            >
+            <input
+              type="text"
+              id="expiry"
+              formControlName="expiry"
+              class="form-control"
+              placeholder="MM/YY"
+              [class.is-invalid]="isFieldInvalid('expiry')"
+            />
+            <div class="invalid-feedback" aria-live="polite">
+              @if(hasError('expiry', 'required')) {
+                {{t('PAYMENT.ERRORS.REQUIRED')}}
+              }@else if(hasError('expiry', 'expired')){
+                {{t('PAYMENT.ERRORS.EXPIRED')}}
+              } @else {
+              {{t('PAYMENT.ERRORS.EXPIRY')}} }
+            </div>
+          </div>
+          <div class="col-6 mb-3">
+            <label class="form-label small fw-bold" for="cvc"
+              >{{ t('PAYMENT.CVC') }}</label
+            >
+            <input
+              type="password"
+              id="cvc"
+              formControlName="cvc"
+              class="form-control"
+              placeholder="***"
+              [class.is-invalid]="isFieldInvalid('cvc')"
+            />
+            <div class="invalid-feedback" aria-live="polite">
+              @if(hasError('cvc', 'required')) {
+                {{t('PAYMENT.ERRORS.REQUIRED')}}
+              } @else{
+                {{t('PAYMENT.ERRORS.CVC')}}
+              }
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 mb-3">
+            <label class="form-label small fw-bold" for="postalCode"
+              >{{ t('PAYMENT.POSTAL_CODE') }}</label
+            >
+            <input
+              type="text"
+              id="postalCode"
+              formControlName="postalCode"
+              class="form-control"
+              [class.is-invalid]="isFieldInvalid('postalCode')"
+              [placeholder]="t('PAYMENT.POSTAL_CODE')"
+            />
+            <div class="invalid-feedback" aria-live="polite">
+              @if(hasError('postalCode', 'required')) {
+                {{t('PAYMENT.ERRORS.REQUIRED')}}
+              } @else {
+                {{t('PAYMENT.ERRORS.POSTAL')}}
+              }
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn w-100 fw-bold mt-2"
+          [style.background-color]="themeColor"
+          [style.color]="'white'"
+          [disabled]="isProcessing()"
+        >
+          @if(isProcessing()) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          } {{ isProcessing() ? t('PAYMENT.PROCESSING') : t('PAYMENT.SUBMIT') }}
+        </button>
+      </form>
+    </div>
+  }
+  </div>
+  </div>
+  </div>
+</ng-container>

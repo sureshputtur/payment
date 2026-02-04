@@ -1,0 +1,27 @@
+{
+  "PAYMENT": {
+    "TITLE": "Secure Payment",
+    "CARD_NUMBER": "CARD NUMBER",
+    "EXPIRY": "EXPIRY",
+    "CVC": "CVC",
+    "POSTAL_CODE": "POSTAL CODE",
+    "SUBMIT": "PAY NOW",
+    "PROCESSING": "PROCESSING...",
+    "PAYMENT_SUCCESS": "Thank you! Your transaction has been completed successfully",
+    "PAY_CONFIRMED": "Payment Confirmed",
+    "GENERAL": {
+      "DONE": "Done",
+      "TRYAGAIN": "Try Again"
+    },
+    "ERRORS": {
+      "CARD": "Invalid valid card number.",
+      "EXPIRY": "Use MM/YY format.",
+      "CVC": "Invalid CVC.",
+      "POSTAL": "Invalid Zip Code.",
+      "REQUIRED": "This field cannot be empty.",
+      "DECLINED":"The transaction was declined. Please check your card details and try again.",
+      "FAILED": "Payment Failed",
+      "EXPIRED": "This card has expired"
+    }
+  }
+}
