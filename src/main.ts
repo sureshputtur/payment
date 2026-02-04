@@ -2,10 +2,10 @@ import 'zone.js'
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
-import { CardPaymentForm } from './card-payment-form/card-payment-form';
+import { App } from './app/app';
 import { TranslocoHttpLoader} from './core/transloco-loader'
 
-bootstrapApplication(CardPaymentForm, {
+bootstrapApplication(App, {
   providers: [
     provideHttpClient(),
     provideTransloco({
