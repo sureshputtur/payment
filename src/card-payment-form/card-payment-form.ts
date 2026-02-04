@@ -32,7 +32,7 @@ export class CardPaymentForm implements OnInit{
       cardNumber: ['', [Validators.required, Validators.pattern(this.CARD_PATTERN)]],
       expiry: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/?([0-9]{2})$'), this.expiryValidator]],
       cvc: ['', [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]{3,4}$')]],
-      postalCode: ['', [Validators.required, Validators.minLength(5)]]
+      postalCode: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^\d{5}(-\d{4})?$/)]]
     });
   }
 
